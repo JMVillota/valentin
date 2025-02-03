@@ -1,0 +1,137 @@
+.card-scene {
+  min-height: 100vh;
+  background: #ffd1dc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  position: relative;
+}
+
+/* Sobre */
+.envelope {
+  width: 300px;
+  height: 200px;
+  background: #ff8fab;
+  position: absolute;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  background: #ff7096;
+  clip-path: polygon(0 0, 50% 50%, 100% 0);
+  transform-origin: top;
+  transition: transform 0.4s ease;
+  z-index: 2;
+}
+
+.envelope.open .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+.envelope-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.heart-seal {
+  background: white;
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Carta */
+.letter {
+  width: 260px;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
+}
+
+.letter-content {
+  text-align: center;
+}
+
+.letter-heart {
+  margin-bottom: 1rem;
+  animation: pulse 1.5s infinite;
+}
+
+.letter h2 {
+  color: #ff6b95;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.letter p {
+  color: #666;
+  font-size: 1rem;
+}
+
+/* Texto clickeable */
+.envelope-clickable {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 4;
+}
+
+.click-text {
+  color: white;
+  font-size: 1.2rem;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Animaciones */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Efectos hover */
+.letter:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.envelope:not(.open):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .envelope {
+    width: 280px;
+    height: 180px;
+  }
+  
+  .letter {
+    width: 240px;
+  }
+  
+  .letter h2 {
+    font-size: 1.3rem;
+  }
+}
