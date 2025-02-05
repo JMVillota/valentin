@@ -249,7 +249,7 @@ const ValentineCard = () => {
                   transition={{ delay: 0.3 }}
                   className="valentine-message"
                 >
-                  Mi amor hermoso, cada día me enamoro más de ti.
+                  Mi amor hermosa, cada día me enamoro más de ti.
                   Tu sonrisa ilumina mi mundo y tu amor me hace mejor persona.
                   Eres mi felicidad y mi razón de sonreír.
                   No puedo imaginar mi vida sin ti. ❤️
