@@ -1,29 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
 .card-scene {
-  min-height: 100vh;
+  height: 100vh;
   background: #ffd1dc;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Helvetica Neue', Arial, sans-serif;
   position: relative;
+  perspective: 2000px;
+  overflow: hidden;
 }
 
-/* Sobre */
+.card-container {
+  width: min(300px, 85vw);
+  height: min(400px, 70vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  z-index: 100;
+  margin: auto;
+  position: relative;
+}
+
+/* Background Effects */
+.background-effects {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.effect-wrapper {
+  position: absolute;
+  transform-origin: center;
+  filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+}
+
+/* Floating Images */
+.floating-images-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.floating-image-wrapper {
+  position: absolute;
+  width: min(80px, 15vw);
+  height: min(80px, 15vw);
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.floating-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: min(10px, 2vw);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 2px solid white;
+  animation: glowEffect 2s ease-in-out infinite alternate;
+}
+
+/* Letter Styles */
+.letter {
+  width: min(300px, 85vw);
+  background: white;
+  padding: min(1.5rem, 4vw);
+  border-radius: min(10px, 2vw);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  cursor: pointer;
+  position: absolute;
+  z-index: 200;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.letter-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: min(1rem, 2vh);
+}
+
+.valentine-message {
+  color: #ff6b95;
+  font-size: min(1rem, 3.5vw);
+  line-height: 1.4;
+  margin: min(0.5rem, 1vh) 0;
+  text-align: center;
+  max-width: min(280px, 80vw);
+  font-style: italic;
+  padding: min(8px, 1.5vw);
+  font-weight: 500;
+}
+
+.valentine-title {
+  color: #ff6b95;
+  font-size: min(1.6rem, 5vw);
+  margin: 0;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Handwritten Text Styles */
+.handwritten-text {
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  z-index: 5;
+  font-size: 2rem;
+  color: #ff4081;
+  font-family: 'Dancing Script', cursive;
+  pointer-events: none;
+}
+
+.animated-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Envelope Styles */
 .envelope {
-  width: 300px;
-  height: 200px;
+  width: min(300px, 85vw);
+  height: min(180px, 35vh);
   background: #ff8fab;
   position: absolute;
-  border-radius: 10px;
+  border-radius: min(10px, 2vw);
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+  will-change: transform, opacity;
+  z-index: 150;
 }
 
 .envelope-flap {
   position: absolute;
   top: 0;
   width: 100%;
-  height: 80px;
+  height: min(60px, 15vh);
   background: #ff7096;
   clip-path: polygon(0 0, 50% 50%, 100% 0);
   transform-origin: top;
@@ -43,48 +179,16 @@
   align-items: center;
   justify-content: center;
   z-index: 1;
+  backface-visibility: hidden;
 }
 
 .heart-seal {
   background: white;
-  padding: 10px;
+  padding: min(8px, 1.5vw);
   border-radius: 50%;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Carta */
-.letter {
-  width: 260px;
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  cursor: pointer;
-  position: relative;
-  z-index: 3;
-}
-
-.letter-content {
-  text-align: center;
-}
-
-.letter-heart {
-  margin-bottom: 1rem;
-  animation: pulse 1.5s infinite;
-}
-
-.letter h2 {
-  color: #ff6b95;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-}
-
-.letter p {
-  color: #666;
-  font-size: 1rem;
-}
-
-/* Texto clickeable */
 .envelope-clickable {
   position: absolute;
   width: 100%;
@@ -96,42 +200,195 @@
   z-index: 4;
 }
 
-.click-text {
-  color: white;
-  font-size: 1.2rem;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+/* Response Buttons */
+.response-buttons {
+  display: flex;
+  gap: min(0.8rem, 2vw);
+  margin-top: min(0.8rem, 2vh);
 }
 
-/* Animaciones */
+.response-button {
+  padding: min(0.4rem, 1vh) min(1.5rem, 3vw);
+  border: none;
+  border-radius: 25px;
+  font-size: min(0.9rem, 3.5vw);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.response-button.yes {
+  background: #ff6b95;
+  color: white;
+}
+
+.response-button.no {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.response-button:hover {
+  transform: scale(1.05);
+}
+
+.close-text {
+  color: #ff6b95;
+  cursor: pointer;
+  font-size: min(0.9rem, 3.5vw);
+  margin-top: min(0.8rem, 2vh);
+}
+
+/* Music Control */
+.music-control {
+  position: fixed;
+  top: min(20px, 4vh);
+  right: min(20px, 4vw);
+  width: min(40px, 10vw);
+  height: min(40px, 10vw);
+  background: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 300;
+  transition: all 0.3s ease;
+}
+
+.music-control:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.music-icon {
+  transition: transform 0.3s ease;
+}
+
+.music-icon.playing {
+  animation: pulse 1.5s infinite;
+}
+
+/* Animations */
+@keyframes glowEffect {
+  from {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  to {
+    box-shadow: 0 4px 20px rgba(255, 107, 149, 0.4);
+  }
+}
+
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
 
-/* Efectos hover */
-.letter:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+@keyframes fadeInLetter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.envelope:not(.open):hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+@keyframes pulseEnvelope {
+  0% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.05) translateY(-5px); }
+  100% { transform: scale(1) translateY(0); }
 }
 
-/* Responsive */
-@media (max-width: 480px) {
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Initial Animations */
+.envelope:not(.open) {
+  animation: pulseEnvelope 2s infinite ease-in-out;
+}
+
+.initial-text {
+  position: absolute;
+  top: -40px;
+  width: 100%;
+  text-align: center;
+  color: #ff6b95;
+  font-size: min(1.2rem, 4vw);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+}
+
+/* Media Queries */
+@media (max-height: 600px) {
+  .letter-content {
+    gap: 0.8rem;
+  }
+  
+  .valentine-message {
+    margin: 0.3rem 0;
+    line-height: 1.3;
+    font-size: min(0.8rem, 3vw);
+  }
+  
+  .response-buttons {
+    margin-top: 0.5rem;
+  }
+
   .envelope {
-    width: 280px;
-    height: 180px;
+    height: min(160px, 30vh);
+  }
+
+  .envelope-flap {
+    height: min(50px, 12vh);
   }
   
+  .handwritten-text {
+    font-size: 1.5rem;
+    top: 15%;
+  }
+}
+
+@media (max-width: 480px) {
+  .handwritten-text {
+    font-size: 1.5rem;
+    top: 15%;
+    left: 10%;
+  }
+}
+
+@media (max-width: 360px) {
+  .card-container {
+    width: min(280px, 90vw);
+  }
+
   .letter {
-    width: 240px;
+    width: min(280px, 90vw);
+    padding: min(1.2rem, 3vw);
+  }
+
+  .valentine-message {
+    font-size: min(0.8rem, 3vw);
+    padding: 5px;
+  }
+
+  .response-button {
+    padding: 0.3rem 1rem;
+  }
+
+  .floating-image-wrapper {
+    width: min(70px, 13vw);
+    height: min(70px, 13vw);
   }
   
-  .letter h2 {
-    font-size: 1.3rem;
+  .handwritten-text {
+    font-size: 1.2rem;
   }
 }
